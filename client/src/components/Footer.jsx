@@ -7,6 +7,7 @@ import FacebookIcon from "@mui/icons-material/Facebook";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import PhoneIcon from "@mui/icons-material/Phone";
 import RoomIcon from "@mui/icons-material/Room";
+import { mobile } from "../responsive";
 
 const Footer = () => {
   return (
@@ -69,7 +70,7 @@ const Footer = () => {
 };
 const Container = styled.div`
   display: flex;
-  ${"" /* ${mobile({ flexDirection: "column" })} */}
+  ${mobile({ flexDirection: "column" })}
 `;
 
 const Left = styled.div`
@@ -104,7 +105,7 @@ const SocialIcon = styled.div`
 const Center = styled.div`
   flex: 1;
   padding: 20px;
-  ${"" /* ${mobile({ display: "none" })} */}
+  ${mobile({ display: "none" })}
 `;
 
 const Title = styled.h3`
@@ -127,7 +128,7 @@ const ListItem = styled.li`
 const Right = styled.div`
   flex: 1;
   padding: 20px;
-  ${"" /* ${mobile({ backgroundColor: "#fff8f8" })} */}
+  ${mobile({ backgroundColor: "#fff8f8" })}
 `;
 
 const ContactItem = styled.div`
