@@ -4,32 +4,77 @@ import SearchIcon from "@mui/icons-material/Search";
 import Badge from "@mui/material/Badge";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { mobile } from "../responsive";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+
+import { Logout } from "../redux/apiCalls";
 
 const Navbar = () => {
   const quantity = useSelector((state) => state.cart.quantity);
-  console.log(quantity);
+
+  const user = useSelector((state) => state.user.currentUser);
+
+  const dispatch = useDispatch();
+  const handleClick = (e) => {
+    e.preventDefault();
+    Logout(dispatch);
+  };
   return (
     <Container>
       <Wrapper>
         <Left>
-          <Language>En </Language>
+          <Language>English</Language>
           <SearchContainer>
             <Input placeholder="Search" />
             <SearchIcon style={{ color: "gray", fontSize: 16 }} />
           </SearchContainer>
         </Left>
         <Center>
-          <Logo>Hritik.</Logo>
+          <Link to="/">
+            <Logo
+              style={{
+                cursor: "pointer",
+                textDecoration: "none",
+                color: "black",
+              }}
+            >
+              Shopping.
+            </Logo>
+          </Link>
         </Center>
 
         <Right>
-          <MenuItem>REGISTER</MenuItem>
-          <MenuItem>SIGN IN</MenuItem>
+          {user ? (
+            <>
+              <MenuItem>Hi,{user.username}</MenuItem>
+              <MenuItem onClick={handleClick}>Logout</MenuItem>
+            </>
+          ) : (
+            <>
+              <Link
+                to="/register"
+                style={{
+                  color: "black",
+                  textDecoration: "none",
+                }}
+              >
+                <MenuItem>REGISTER</MenuItem>
+              </Link>
+              <Link
+                to="/login"
+                style={{
+                  color: "black",
+                  textDecoration: "none",
+                }}
+              >
+                <MenuItem>SIGN IN</MenuItem>
+              </Link>
+            </>
+          )}
+
           <MenuItem>
             <Link to="/cart">
-              <Badge badgeContent={quantity} color="primary">
+              <Badge badgeContent={user ? quantity : ""} color="primary">
                 <ShoppingCartOutlinedIcon />
               </Badge>
             </Link>
@@ -81,7 +126,9 @@ const Center = styled.div`
 const Logo = styled.h1`
   font-weight: bold;
   text-align: center;
-  ${mobile({ fontSize: "24px" })}
+  text-decoration: none;
+  text-underline: none;
+  ${mobile({ fontSize: "24px" })};
 `;
 const Right = styled.div`
   flex: 1;
@@ -93,6 +140,7 @@ const Right = styled.div`
 const MenuItem = styled.div`
   font-size: 14px;
   cursor: pointer;
+  text-decoration: none;
   margin-left: 25px;
   ${mobile({ fontSize: "12px", marginLeft: "10px" })}
 `;

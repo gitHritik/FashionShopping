@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 const Annoucement = () => {
-  return <Container>Super Deal! Free Shipping On Order Over $45</Container>;
+  return <Container>Great Deals on Clothes Over 50% off</Container>;
 };
 const Container = styled.div`
   background-color: teal;
